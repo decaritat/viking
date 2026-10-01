@@ -2052,6 +2052,32 @@ gboolean vik_track_get_minmax_alt ( const VikTrack *tr, gdouble *min_alt, gdoubl
   return FALSE;
 }
 
+/*
+ * Keep the raw on-disk representation stable.  Trackpoint structures used to
+ * be written directly, so new in-memory fields are persisted separately.
+ */
+typedef struct {
+  gchar* name;
+  VikCoord coord;
+  gboolean newsegment;
+  gdouble timestamp;
+  gdouble altitude;
+  gdouble speed;
+  gdouble course;
+  guint nsats;
+  guint fix_mode;
+  gdouble hdop;
+  gdouble vdop;
+  gdouble pdop;
+  gchar *extensions;
+  guint heart_rate;
+  gint cadence;
+  gdouble temp;
+  gint power;
+} VikTrackpointMarshall;
+
+#define VIK_TRACK_ROUTE_WAYPOINTS_MAGIC 0x56525750U
+
 void vik_track_marshall ( VikTrack *tr, guint8 **data, guint *datalen)
 {
   GList *tps;
@@ -2075,9 +2101,10 @@ void vik_track_marshall ( VikTrack *tr, guint8 **data, guint *datalen)
   tps = tr->trackpoints;
   ntp = 0;
   while (tps) {
-    g_byte_array_append(b, (guint8 *)tps->data, sizeof(VikTrackpoint));
-    vtm_append(VIK_TRACKPOINT(tps->data)->name);
-    vtm_append(VIK_TRACKPOINT(tps->data)->extensions);
+    VikTrackpoint *tp = VIK_TRACKPOINT(tps->data);
+    g_byte_array_append(b, (guint8 *)tp, sizeof(VikTrackpointMarshall));
+    vtm_append(tp->name);
+    vtm_append(tp->extensions);
     tps = tps->next;
     ntp++;
   }
@@ -2091,6 +2118,13 @@ void vik_track_marshall ( VikTrack *tr, guint8 **data, guint *datalen)
   vtm_append(tr->url_name);
   vtm_append(tr->type);
   vtm_append(tr->extensions);
+
+  g_byte_array_append(b, (guint8 *)&(guint){ VIK_TRACK_ROUTE_WAYPOINTS_MAGIC }, sizeof(guint));
+  g_byte_array_append(b, (guint8 *)&ntp, sizeof(ntp));
+  for (tps = tr->trackpoints; tps; tps = tps->next) {
+    guint8 route_waypoint = VIK_TRACKPOINT(tps->data)->route_waypoint;
+    g_byte_array_append(b, &route_waypoint, sizeof(route_waypoint));
+  }
 
   *data = b->data;
   *datalen = b->len;
@@ -2136,8 +2170,9 @@ VikTrack *vik_track_unmarshall (const guint8 *data_in, guint datalen)
 
   for (i=0; i<ntp; i++) {
     new_tp = vik_trackpoint_new();
-    memcpy(new_tp, data, sizeof(*new_tp));
-    data += sizeof(*new_tp);
+    memcpy(new_tp, data, sizeof(VikTrackpointMarshall));
+    new_tp->route_waypoint = FALSE;
+    data += sizeof(VikTrackpointMarshall);
     vtu_get(new_tp->name);
     vtu_get(new_tp->extensions);
     new_tr->trackpoints = g_list_prepend(new_tr->trackpoints, new_tp);
@@ -2153,6 +2188,25 @@ VikTrack *vik_track_unmarshall (const guint8 *data_in, guint datalen)
   vtu_get(new_tr->url_name);
   vtu_get(new_tr->type);
   vtu_get(new_tr->extensions);
+
+  if ( datalen && (gsize)(data - data_in) + (2 * sizeof(guint)) <= datalen ) {
+    guint magic;
+    guint marker_count;
+    memcpy ( &magic, data, sizeof(magic) );
+    data += sizeof(magic);
+    memcpy ( &marker_count, data, sizeof(marker_count) );
+    data += sizeof(marker_count);
+
+    if ( magic == VIK_TRACK_ROUTE_WAYPOINTS_MAGIC &&
+         marker_count == ntp &&
+         (gsize)(data - data_in) + marker_count <= datalen ) {
+      GList *tps = new_tr->trackpoints;
+      while ( tps ) {
+        VIK_TRACKPOINT(tps->data)->route_waypoint = *data++;
+        tps = tps->next;
+      }
+    }
+  }
 
   return new_tr;
 }

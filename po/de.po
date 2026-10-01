@@ -2791,6 +2791,24 @@ msgstr "Trac_kpunkt bearbeiten"
 msgid "Edit Trackpoint"
 msgstr "Spurpun_kt bearbeiten"
 
+msgid "Edit Route _Waypoint"
+msgstr "Routenwegpunkt _bearbeiten"
+
+msgid "Route _Waypoint"
+msgstr "Routen_wegpunkt"
+
+msgid "Insert Route Waypoint _Before"
+msgstr "Routenwegpunkt _davor einfügen"
+
+msgid "Insert Route Waypoint _After"
+msgstr "Routenwegpunkt da_nach einfügen"
+
+msgid "Delete Route _Waypoint"
+msgstr "Routenwegpunkt _löschen"
+
+msgid "Unable to recalculate the route section."
+msgstr "Der Routenabschnitt konnte nicht neu berechnet werden."
+
 #. a pixbuf for this one is already made globally available
 msgid "Show P_icture"
 msgstr "B_ild anzeigen"
@@ -2800,6 +2818,9 @@ msgstr "Bild _anzeigen"
 
 msgid "Waypoint Images"
 msgstr "Wegpunkt-Bilder"
+
+msgid "Route Waypoints"
+msgstr "Routenwegpunkte"
 
 msgid "Tracks Advanced"
 msgstr "Erweitert"
@@ -2821,6 +2842,9 @@ msgstr "Alle Spuren mit der gleichen Farbe"
 
 msgid "Filled Square"
 msgstr "Rechteck ausgefüllt"
+
+msgid "Filled Circle"
+msgstr "Ausgefüllter Kreis"
 
 msgid "Square"
 msgstr "Quadrat"
@@ -2905,6 +2929,15 @@ msgstr "Spurpunkte zeichnen"
 
 msgid "Trackpoint Size:"
 msgstr "Spurpunkt-Größe:"
+
+msgid "Route Waypoint Color:"
+msgstr "Farbe des Routenwegpunkts:"
+
+msgid "Route Waypoint Marker:"
+msgstr "Markierung des Routenwegpunkts:"
+
+msgid "Route Waypoint Size:"
+msgstr "Größe des Routenwegpunkts:"
 
 msgid "Draw Elevation"
 msgstr "Steigungen zeichnen:"

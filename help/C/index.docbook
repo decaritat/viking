@@ -3451,6 +3451,18 @@ One must finish the current route to be able to create another route.
 <para>
 One can switch between the <link linkend="route_edit">Edit Route</link> and <link linkend="route_finder">Route Finder</link> tools while editing routes.
 </para>
+<para>
+Routes created with the Route Finder show their manually selected route waypoints as
+separate markers. Use the Edit Trackpoint tool to select and drag a route waypoint;
+only these markers can be moved. Hold <keycap>Ctrl</keycap> while using the Edit
+Route tool to insert a route waypoint on an existing route section. The route
+sections adjacent to a moved or deleted waypoint are recalculated, while all other
+sections remain unchanged. Inserting from the <guilabel>Route Waypoint</guilabel>
+context submenu promotes the middle calculated trackpoint between two route
+waypoints without changing the current geometry. If no calculated trackpoint is
+available, only that section is recalculated instead. Route waypoints can also be
+edited or deleted from this submenu.
+</para>
 </section>
 
 <section id="route_finder" xreflabel="Route Finder"><title>Create Route Using the Route Finder</title>

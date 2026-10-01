@@ -2660,6 +2660,24 @@ msgstr ""
 msgid "Edit Trackpoint"
 msgstr ""
 
+msgid "Edit Route _Waypoint"
+msgstr "Edit Route _Waypoint"
+
+msgid "Route _Waypoint"
+msgstr "Route _Waypoint"
+
+msgid "Insert Route Waypoint _Before"
+msgstr "Insert Route Waypoint _Before"
+
+msgid "Insert Route Waypoint _After"
+msgstr "Insert Route Waypoint _After"
+
+msgid "Delete Route _Waypoint"
+msgstr "Delete Route _Waypoint"
+
+msgid "Unable to recalculate the route section."
+msgstr "Unable to recalculate the route section."
+
 #. a pixbuf for this one is already made globally available
 msgid "Show P_icture"
 msgstr ""
@@ -2669,6 +2687,9 @@ msgstr ""
 
 msgid "Waypoint Images"
 msgstr ""
+
+msgid "Route Waypoints"
+msgstr "Route Waypoints"
 
 msgid "Tracks Advanced"
 msgstr ""
@@ -2690,6 +2711,9 @@ msgstr "All Tracks Same Colour"
 
 msgid "Filled Square"
 msgstr ""
+
+msgid "Filled Circle"
+msgstr "Filled Circle"
 
 msgid "Square"
 msgstr ""
@@ -2774,6 +2798,15 @@ msgstr ""
 
 msgid "Trackpoint Size:"
 msgstr ""
+
+msgid "Route Waypoint Color:"
+msgstr "Route Waypoint Colour:"
+
+msgid "Route Waypoint Marker:"
+msgstr "Route Waypoint Marker:"
+
+msgid "Route Waypoint Size:"
+msgstr "Route Waypoint Size:"
 
 msgid "Draw Elevation"
 msgstr ""

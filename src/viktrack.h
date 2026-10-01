@@ -58,6 +58,7 @@ struct _VikTrackpoint {
   gint cadence;      // In Revs Per Minute (RPM): VIK_TRKPT_CADENCE_NONE if data unavailable
   gdouble temp;      // Temperature is in degrees C: NAN if data unavailable
   gint power;        // Watts: VIK_TRKPT_POWER_NONE if data unavailable
+  gboolean route_waypoint; // User-defined routing anchor point
 };
 
 typedef enum {
