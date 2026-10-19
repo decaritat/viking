@@ -60,6 +60,7 @@ libviking_a_SOURCES = \
 	viking.h mapcoord.h config.h \
 	viktrwlayer.c viktrwlayer.h \
 	vik_compat.c vik_compat.h \
+	vikrouteedit.c vikrouteedit.h \
 	viktrack.c viktrack.h \
 	vikwaypoint.c vikwaypoint.h \
 	clipboard.c clipboard.h \

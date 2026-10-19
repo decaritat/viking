@@ -22,7 +22,8 @@ TESTS = check_degrees_conversions.sh \
 	check_vikgoto.sh \
 	check_geojson_osrm.sh \
 	check_help_xml.sh \
-	check_metatile.sh
+	check_metatile.sh \
+	test_route_edit
 if GEOTAG
 TESTS += check_geotag.sh
 endif
@@ -52,7 +53,8 @@ check_PROGRAMS = degrees_converter \
 	test_parse_latlon \
 	test_babel \
 	test_file_load \
-	test_metatile
+	test_metatile \
+	test_route_edit
 
 if GEOTAG
 check_PROGRAMS += geotag_read geotag_write
@@ -185,5 +187,10 @@ test_metatile_LDADD = \
 
 test_file_load_SOURCES = test_file_load.c
 test_file_load_LDADD = \
+  $(top_builddir)/src/libviking.a \
+  $(LDADD)
+
+test_route_edit_SOURCES = test_route_edit.c
+test_route_edit_LDADD = \
   $(top_builddir)/src/libviking.a \
   $(LDADD)
